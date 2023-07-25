@@ -1,27 +1,29 @@
 const { Schema, model } = require('mongoose');
-const User = require('./User');
+const Reaction = require('./Reaction');
+const moment = require("moment");
 
 // Schema to create Post model
 const thoughtSchema = new Schema(
   {
-    published: {
-      type: Boolean,
-      default: false,
+    thoughtText: {
+      type: String,
+      required: true,
+      minLength: 1,
+      maxLength: 280
     },
     createdAt: {
       type: Date,
       default: Date.now,
+      get: (createdAtVal) => {
+        return moment(createdAtVal).format("YYYY-MM-DD hh:mm a");
+      },
     },
-    buildSuccess: {
-      type: Boolean,
-      default: true,
+    username: {
+      type: Schema.Types.ObjectId, 
+      ref: 'User' 
     },
-    description: {
-      type: String,
-      minLength: 15,
-      maxLength: 500,
-    },
-    tags: [Tag],
+    reactions:
+      [reactionSchema]
   },
   {
     toJSON: {
@@ -30,3 +32,13 @@ const thoughtSchema = new Schema(
     id: false,
   }
 );
+
+// Make virtual for reaction count
+thoughtSchema
+  .virtual('reactionCount')
+  // Getter
+  .get(function () {
+    return this.reactions.length;
+  });
+
+  // Initialize our Thought model
