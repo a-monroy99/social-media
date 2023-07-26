@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-
+const Reaction = require('./Reactions')
 const moment = require("moment");
 
 // Schema to create Post model
@@ -41,4 +41,7 @@ thoughtSchema
     return this.reactions.length;
   });
 
-  // Initialize our Thought model
+// Initialize our Thought model
+const Thoughts = model('thoughts', thoughtSchema);
+
+module.exports = Thoughts;
