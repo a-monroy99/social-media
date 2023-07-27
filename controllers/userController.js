@@ -4,7 +4,7 @@ module.exports = {
   // get all users
   getUsers(req, res) {
     Users.find()
-      .then((users) => res.json(users))
+      .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
   // get a single user by id
@@ -72,5 +72,6 @@ module.exports = {
           ? res.status(404).json({ message: "No user with that ID" })
           : res.json(user)
       )
+      .catch((err) => res.status(500).json(err))
   }
 };

@@ -18,10 +18,13 @@ const thoughtSchema = new Schema(
         return moment(createdAtVal).format("YYYY-MM-DD hh:mm a");
       },
     },
-    username: {
+    username: [
+      {
       type: Schema.Types.ObjectId, 
-      ref: 'User' 
-    },
+      ref: 'User',
+      required: true,
+      }
+    ],
     reactions:
       [Reaction]
   },
