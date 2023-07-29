@@ -1,5 +1,3 @@
-
-https://github.com/a-monroy99/social-media/assets/125234279/3196c913-f02c-4c4b-8d92-a3a820621461
 # Social Media App
 
 ## Description
