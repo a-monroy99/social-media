@@ -20,7 +20,7 @@ module.exports = {
   // create a new user
   createUser(req, res) {
     Users.create(req.body)
-      .then((dbUserData) => res.json(dbUserData))
+      .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
   // update a user
@@ -51,7 +51,7 @@ module.exports = {
   addFriend(req, res) {
     Users.findOneAndUpdate(
       { _id: req.params.userId},
-      { $addToSet: {friends: req.body} },
+      { $addToSet: {friends: req.params.friendsId} },
       { returnOriginal: false }
       )
         .then((user) => 
@@ -64,7 +64,7 @@ module.exports = {
   removeFriend(req, res) {
     Users.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { friends: req.body } },
+      { $pull: { friends: req.params.friendsId } },
       { returnOriginal: false }
     )
       .then((user) => 

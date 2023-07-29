@@ -7,24 +7,24 @@ const userSchema = new Schema(
       type: String,
       unique: true,
       required: true,
-      trimmed: true
+      trim: true
     },
     email: {
       type: String,
       required: true,
-      unqique: true,
-      match: "/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/"
+      unique: true,
+      match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']    
     },
     thoughts: [
       { 
         type: Schema.Types.ObjectId, 
-        ref: 'Thought'
+        ref: 'Thoughts'
       }
     ],
     friends: [
       { 
         type: Schema.Types.ObjectId, 
-        ref: 'User' 
+        ref: 'Users' 
       }
     ]
   },
@@ -45,6 +45,6 @@ userSchema
   });
 
   // Initialize our User model
-const Users = model('user', userSchema);
+const Users = model('Users', userSchema);
 
 module.exports = Users;
